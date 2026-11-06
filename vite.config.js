@@ -8,7 +8,10 @@ const sandboxDomain = process.env.BASE44_SANDBOX_HOST_DOMAIN;
 const allowedHosts =
   previewMode && sandboxDomain ? [`.${sandboxDomain}`] : undefined;
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  // GitHub Pages serves the site from /<repo>/, so the production build has to
+  // address its assets relatively. Dev keeps the normal root base.
+  base: command === 'build' ? './' : '/',
   plugins: [react()],
   server: {
     host: '0.0.0.0',
@@ -17,4 +20,4 @@ export default defineConfig({
     allowedHosts,
     watch: { usePolling: true },
   },
-});
+}));

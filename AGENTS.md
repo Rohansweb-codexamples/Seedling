@@ -26,6 +26,19 @@ the checkout.
   3D assets) that grow through seed → sprout → bud → bloom.
 - `src/components/*Panel.jsx` — the wooden sheets behind the bottom navigation.
 
+## Deploying to GitHub Pages
+
+The game is a plain static site once built, so Pages can host it:
+
+1. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+2. Push to `main` (or run *Deploy to GitHub Pages* from the Actions tab).
+
+`.github/workflows/deploy-pages.yml` runs `npm ci && npm run build` and publishes
+`dist/`. `vite.config.js` builds with a relative `base`, so the bundle resolves
+its assets under `/<repo-name>/`. Opening `index.html` straight from the repo
+will always be blank — it points at `/src/main.jsx`, which only a dev server can
+transform.
+
 ## Notes
 
 - No backend, no external services, no credentials: the save lives in the
